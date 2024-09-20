@@ -85,7 +85,7 @@ void mostrarDados(Cidade cidades[], Indice ind_cidade[], int num_cidades,
                 cout << "Opção: ";
                 cin >> codigoBusca;
                 limparTela();
-                // buscaBinariaAluno(ind_curso, cursos, num_cursos, codigoBusca);
+                buscaBinariaAluno(ind_aluno, alunos, num_alunos, codigoBusca, cidades, ind_cidade, num_cidades);
                 aguardarEnter();
             }
             break;
@@ -125,7 +125,46 @@ void menuInclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades,
                 break;
             case 4:
                 limparTela();
-                lerDadosAluno(alunos, num_alunos);
+                lerDadosAluno(alunos, ind_aluno, num_alunos);
+                break;
+            case 0:
+                cout << "Voltando ao menu principal.\n";
+                break;
+            default:
+                cout << "Opção inválida.\n";
+        }
+    } while (opcao != 0);
+}
+
+void menuExclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades, 
+                  Curso cursos[], Indice ind_curso[], int& num_cursos, 
+                  Instrutor instrutores[], Indice ind_instrutor[], int& num_instrutores, 
+                  Aluno alunos[], Indice ind_aluno[], int& num_alunos) {
+    int opcao;
+    do {
+        limparTela();
+        cout << "\nMenu de Exclusão:\n";
+        cout << "1. Excluir Cidade\n";
+        cout << "2. Excluir Curso\n";
+        cout << "3. Excluir Instrutor\n";
+        cout << "4. Excluir Aluno\n";
+        cout << "0. Voltar ao menu principal\n";
+        cout << "Escolha uma opção: ";
+        cin >> opcao;
+
+        switch (opcao) {
+            case 1:
+                limparTela();
+                break;
+            case 2:
+                limparTela();
+                break;
+            case 3:
+                limparTela();
+                exclusaoInstrutor(ind_instrutor, instrutores, num_instrutores, cidades, ind_cidade, num_cidades);
+                break;
+            case 4:
+                limparTela();
                 break;
             case 0:
                 cout << "Voltando ao menu principal.\n";

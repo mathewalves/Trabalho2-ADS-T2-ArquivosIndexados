@@ -39,6 +39,10 @@ int main() {
                 limparTela();
                 mostrarDados(cidades, ind_cidade, num_cidades, cursos, ind_curso, num_cursos, instrutores, ind_instrutor, num_instrutores, alunos, ind_aluno, num_alunos);
                 break;
+            case 3:
+                limparTela();
+                menuExclusao(cidades, ind_cidade, num_cidades, cursos, ind_curso, num_cursos, instrutores, ind_instrutor, num_instrutores, alunos, ind_aluno, num_alunos);
+                break;
             case 0:
                 limparTela();
                 cout << "Saindo do programa.\n";

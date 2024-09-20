@@ -22,10 +22,10 @@ Este programa simula arquivos indexados para uma aplicação de gerenciamento de
   - [x] 2.1. Garantir que o código do instrutor não existe.
   - [x] 2.2. Buscar e exibir nome da cidade e UF ao digitar o código da cidade.
 - [x] 3. Função para inclusão de novos registros na tabela de Alunos.
-  - [] 3.1. Garantir que o código do aluno não existe.
-  - [] 3.2. Buscar e exibir nome da cidade e UF ao digitar o código da cidade.
-- [ ] 4. Função para exclusão de registros na tabela de Instrutores.
-  - [ ] 4.1. Não permitir exclusão de instrutores com turmas cadastradas.
+  - [x] 3.1. Garantir que o código do aluno não existe.
+  - [x] 3.2. Buscar e exibir nome da cidade e UF ao digitar o código da cidade.
+- [x] 4. Função para exclusão de registros na tabela de Instrutores.
+  - [] 4.1. Não permitir exclusão de instrutores com turmas cadastradas.
 - [ ] 5. Função para exclusão de registros na tabela de Alunos.
   - [ ] 5.1. Não permitir exclusão de alunos com matrículas cadastradas.
 - [ ] 6. Função para inclusão de novos registros na tabela de Turmas.

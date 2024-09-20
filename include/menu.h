@@ -13,4 +13,9 @@ void menuInclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades,
                   Instrutor instrutores[], Indice ind_instrutor[], int& num_instrutores, 
                   Aluno alunos[], Indice ind_aluno[], int& num_alunos);
 
+void menuExclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades, 
+                  Curso cursos[], Indice ind_curso[], int& num_cursos, 
+                  Instrutor instrutores[], Indice ind_instrutor[], int& num_instrutores, 
+                  Aluno alunos[], Indice ind_aluno[], int& num_alunos);
+
 #endif

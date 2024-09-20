@@ -4,11 +4,11 @@
 #include <iostream>
 using namespace std;
 
-bool codigoInstrutorExiste(Indice ind_instrutor[], int num_instrutores, int codigo) {
+bool codigoInstrutorExiste(Indice ind_instrutor[], Instrutor instrutores[], int num_instrutores, int codigo) {
     int inicio = 0, fim = num_instrutores - 1;
     while (inicio <= fim) {
         int meio = (inicio + fim) / 2;
-        if (ind_instrutor[meio].chave == codigo) {
+        if (ind_instrutor[meio].chave == codigo && instrutores[meio].status == 1) {
             return true;
         } else if (ind_instrutor[meio].chave < codigo) {
             inicio = meio + 1;
@@ -50,10 +50,10 @@ void lerDadosInstrutor(Instrutor instrutores[], Indice ind_instrutor[], int& num
                 break;
             }
             
-            if (codigoInstrutorExiste(ind_instrutor, num_instrutores, codigo_instrutor)) {
+            if (codigoInstrutorExiste(ind_instrutor, instrutores, num_instrutores, codigo_instrutor)) {
                 cout << "Erro: Código de instrutor já existe. Por favor, escolha outro código.\n";
             }
-        } while (codigoInstrutorExiste(ind_instrutor, num_instrutores, codigo_instrutor));
+        } while (codigoInstrutorExiste(ind_instrutor, instrutores, num_instrutores, codigo_instrutor));
 
         if (saida == 0) break;
 
@@ -78,9 +78,11 @@ void mostrarTodosInstrutores(Instrutor instrutores[], int num_instrutores, Cidad
         Cidade cidade_encontrada;
         buscaBinariaCidade(ind_cidade, cidades, num_cidades, instrutores[i].codigo_cidade, cidade_encontrada, false);
         
-        cout << "Código: [ " << instrutores[i].codigo_instrutor << " ], Nome: " << instrutores[i].nome 
+        if (instrutores[i].status == 1){
+            cout << "Código: [ " << instrutores[i].codigo_instrutor << " ], Nome: " << instrutores[i].nome 
              << ", Endereço: " << instrutores[i].endereco 
              << ", Cidade: " << cidade_encontrada.nome << " (" << cidade_encontrada.UF << ")" << endl;
+        }
     }
 }
 
@@ -112,6 +114,75 @@ void buscaBinariaInstrutor(Indice ind_instrutor[], Instrutor instrutores[], int 
             }
             return;
         } else if (codigoBusca > ind_instrutor[meio].chave) {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
+        }
+    }
+    
+    cout << "Instrutor não encontrado.\n";
+}
+
+void exclusaoInstrutor(Indice ind_instrutor[], Instrutor instrutores[], int& num_instrutores, Cidade cidades[], Indice ind_cidade[], int num_cidades){
+    int codigoExclusao;
+    cout << "Digite o código para exclusão: ";
+    cin >> codigoExclusao;
+    
+    int inicio = 0, fim = num_instrutores - 1;
+    int excluir = 0; 
+    int meio;
+
+    while (inicio <= fim) {
+        meio = (inicio + fim) / 2;
+        if (codigoExclusao == ind_instrutor[meio].chave) {
+            int posicaoRegistro = ind_instrutor[meio].endereco;
+            if (instrutores[posicaoRegistro].status == 1) {
+                
+                Cidade cidade_encontrada;
+                buscaBinariaCidade(ind_cidade, cidades, num_cidades, instrutores[posicaoRegistro].codigo_cidade, cidade_encontrada, false);
+
+                if (cidade_encontrada.status == 1) {
+                    cout << "Instrutor encontrado:\n";
+                    cout << "Código: " << instrutores[posicaoRegistro].codigo_instrutor 
+                        << ", Nome: " << instrutores[posicaoRegistro].nome
+                        << ", Endereço: " << instrutores[posicaoRegistro].endereco
+                        << ", Cidade: " << cidade_encontrada.nome << " (" << cidade_encontrada.UF << ")" << endl;
+                    cout << "Realmente deseja fazer a exclusão do instrutor? (Digite '1' para confirmar)" << endl;
+                    cout << "Opção: ";
+                    cin >> excluir;
+                    
+                    if (excluir == 1){
+                        limparTela();
+                        instrutores[posicaoRegistro].status = 0;
+                        num_instrutores - 1;
+                        cout << "Exclusão realizada com sucesso!";
+                        aguardarEnter();
+                    }
+
+                } else {
+                    cout << "Instrutor encontrado, mas a cidade associada está inválida ou excluída.\n";
+                    cout << "Deseja fazer a exclusão do instrutor? (Digite '1' para confirmar)" << endl;
+                    cout << "Opção: ";
+                    cin >> excluir;
+
+                    if (excluir == 1){
+                        limparTela();
+                        instrutores[posicaoRegistro].status = 0;
+                        num_instrutores - 1;
+                        cout << "Exclusão realizada com sucesso!";
+                        aguardarEnter();
+                    } else {
+                        limparTela();
+                        cout << "Exclusão cancelada.";
+                        aguardarEnter();
+                    }
+                }
+
+            } else {
+                cout << "Instrutor já excluído ou inválido.\n";
+            }
+            return;
+        } else if (codigoExclusao > ind_instrutor[meio].chave) {
             inicio = meio + 1;
         } else {
             fim = meio - 1;
