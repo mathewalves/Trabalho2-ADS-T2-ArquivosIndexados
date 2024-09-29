@@ -3,6 +3,8 @@
 #include "../include/curso.h"
 #include "../include/instrutor.h"
 #include "../include/aluno.h"
+#include "../include/turma.h"
+#include "../include/matricula.h"
 #include "../include/utils.h"
 #include <iostream>
 using namespace std;
@@ -10,94 +12,52 @@ using namespace std;
 void mostrarDados(Cidade cidades[], Indice ind_cidade[], int num_cidades, 
                   Curso cursos[], Indice ind_curso[], int num_cursos, 
                   Instrutor instrutores[], Indice ind_instrutor[], int num_instrutores, 
-                  Aluno alunos[], Indice ind_aluno[], int num_alunos) {
-    int opcao, subOpcao, codigoBusca;
+                  Aluno alunos[], Indice ind_aluno[], int num_alunos,
+                  Turma turmas[], Indice ind_turma[], int num_turmas,
+                  Matricula matriculas[], Indice ind_matricula[], int num_matriculas) {
+    int opcao;
     cout << "\nEscolha o tipo de dado para mostrar:\n";
     cout << "1. Cidades\n";
     cout << "2. Cursos\n";
     cout << "3. Instrutores\n";
     cout << "4. Alunos\n";
+    cout << "5. Turmas\n";
+    cout << "6. Matrículas\n";
     cout << "Opção: ";
     cin >> opcao;
 
     limparTela();
-    cout << "\nEscolha a ação:\n";
-    cout << "1. Mostrar todos os dados\n";
-    cout << "2. Pesquisar por um dado\n";
-    cout << "Opção: ";
-    cin >> subOpcao;
-
     switch (opcao) {
         case 1:
-            if (subOpcao == 1) {
-                limparTela();
-                mostrarTodasCidades(cidades, ind_cidade, num_cidades);
-                aguardarEnter();
-            } else if (subOpcao == 2){
-                limparTela();
-                cout << "Digite o código da Cidade:\n";
-                cout << "Opção: ";
-                cin >> codigoBusca;
-                limparTela();
-                Cidade cidade_encontrada;
-                buscaBinariaCidade(ind_cidade, cidades, num_cidades, codigoBusca, cidade_encontrada, true);
-                aguardarEnter();
-            }
+            mostrarTodasCidades(cidades, ind_cidade, num_cidades);
             break;
         case 2:
-            if (subOpcao == 1) {
-                limparTela();
-                mostrarTodosCursos(cursos, ind_curso, num_cursos);
-                aguardarEnter();
-            } else if (subOpcao == 2){
-                limparTela();
-                cout << "Digite o código do Curso:\n";
-                cout << "Opção: ";
-                cin >> codigoBusca;
-                limparTela();
-                buscaBinariaCurso(ind_curso, cursos, num_cursos, codigoBusca);
-                aguardarEnter();
-            }
+            mostrarTodosCursos(cursos, ind_curso, num_cursos);
             break;
         case 3:
-            if (subOpcao == 1) {
-                limparTela();
-                mostrarTodosInstrutores(instrutores, num_instrutores, cidades, ind_cidade, num_cidades);
-                aguardarEnter();
-            } else if (subOpcao == 2){
-                limparTela();
-                cout << "Digite o código do Instrutor:\n";
-                cout << "Opção: ";
-                cin >> codigoBusca;
-                limparTela();
-                buscaBinariaInstrutor(ind_instrutor, instrutores, num_instrutores, codigoBusca, cidades, ind_cidade, num_cidades);
-                aguardarEnter();
-            }
+            mostrarTodosInstrutores(instrutores, num_instrutores, cidades, ind_cidade, num_cidades);
             break;
         case 4:
-            if (subOpcao == 1) {
-                limparTela();
-                mostrarTodosAlunos(alunos, num_alunos, cidades, ind_cidade, num_cidades);
-                aguardarEnter();
-            } else if (subOpcao == 2){
-                limparTela();
-                cout << "Digite o código do Aluno:\n";
-                cout << "Opção: ";
-                cin >> codigoBusca;
-                limparTela();
-                buscaBinariaAluno(ind_aluno, alunos, num_alunos, codigoBusca, cidades, ind_cidade, num_cidades);
-                aguardarEnter();
-            }
+            mostrarTodosAlunos(alunos, num_alunos, cidades, ind_cidade, num_cidades);
+            break;
+        case 5:
+            mostrarTodasTurmas(turmas, num_turmas, cursos, ind_curso, num_cursos, instrutores, ind_instrutor, num_instrutores);
+            break;
+        case 6:
+            mostrarTodasMatriculas(matriculas, num_matriculas, alunos, ind_aluno, num_alunos, turmas, ind_turma, num_turmas, cursos, ind_curso, num_cursos);
             break;
         default:
             cout << "Opção inválida.\n";
     }
+    aguardarEnter();
 }
 
 void menuInclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades, 
                   Curso cursos[], Indice ind_curso[], int& num_cursos, 
                   Instrutor instrutores[], Indice ind_instrutor[], int& num_instrutores, 
-                  Aluno alunos[], Indice ind_aluno[], int& num_alunos) {
+                  Aluno alunos[], Indice ind_aluno[], int& num_alunos,
+                  Turma turmas[], Indice ind_turma[], int& num_turmas,
+                  Matricula matriculas[], Indice ind_matricula[], int& num_matriculas) {
     int opcao;
     do {
         limparTela();
@@ -106,6 +66,8 @@ void menuInclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades,
         cout << "2. Incluir Curso\n";
         cout << "3. Incluir Instrutor\n";
         cout << "4. Incluir Aluno\n";
+        cout << "5. Incluir Turma\n";
+        cout << "6. Incluir Matrícula\n";
         cout << "0. Voltar ao menu principal\n";
         cout << "Escolha uma opção: ";
         cin >> opcao;
@@ -127,6 +89,14 @@ void menuInclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades,
                 limparTela();
                 lerDadosAluno(alunos, ind_aluno, num_alunos);
                 break;
+            case 5:
+                limparTela();
+                lerDadosTurma(turmas, ind_turma, num_turmas, cursos, ind_curso, num_cursos, instrutores, ind_instrutor, num_instrutores);
+                break;
+            case 6:
+                limparTela();
+                lerDadosMatricula(matriculas, ind_matricula, num_matriculas, alunos, ind_aluno, num_alunos, turmas, ind_turma, num_turmas, cursos, ind_curso, num_cursos);
+                break;
             case 0:
                 cout << "Voltando ao menu principal.\n";
                 break;
@@ -136,18 +106,18 @@ void menuInclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades,
     } while (opcao != 0);
 }
 
-void menuExclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades, 
-                  Curso cursos[], Indice ind_curso[], int& num_cursos, 
-                  Instrutor instrutores[], Indice ind_instrutor[], int& num_instrutores, 
-                  Aluno alunos[], Indice ind_aluno[], int& num_alunos) {
+void menuExclusao(Cidade* cidades, Indice* ind_cidade, int& num_cidades,
+                  Curso* cursos, Indice* ind_curso, int& num_cursos,
+                  Instrutor* instrutores, Indice* ind_instrutor, int& num_instrutores,
+                  Aluno* alunos, Indice* ind_aluno, int& num_alunos,
+                  Matricula* matriculas, int num_matriculas,
+                  Turma* turmas, int& num_turmas) {
     int opcao;
     do {
         limparTela();
         cout << "\nMenu de Exclusão:\n";
-        cout << "1. Excluir Cidade\n";
-        cout << "2. Excluir Curso\n";
-        cout << "3. Excluir Instrutor\n";
-        cout << "4. Excluir Aluno\n";
+        cout << "1. Excluir Instrutor\n";
+        cout << "2. Excluir Aluno\n";
         cout << "0. Voltar ao menu principal\n";
         cout << "Escolha uma opção: ";
         cin >> opcao;
@@ -155,16 +125,11 @@ void menuExclusao(Cidade cidades[], Indice ind_cidade[], int& num_cidades,
         switch (opcao) {
             case 1:
                 limparTela();
+                exclusaoInstrutor(ind_instrutor, instrutores, num_instrutores, cidades, ind_cidade, num_cidades, turmas, num_turmas);
                 break;
             case 2:
                 limparTela();
-                break;
-            case 3:
-                limparTela();
-                exclusaoInstrutor(ind_instrutor, instrutores, num_instrutores, cidades, ind_cidade, num_cidades);
-                break;
-            case 4:
-                limparTela();
+                exclusaoAluno(ind_aluno, alunos, num_alunos, cidades, ind_cidade, num_cidades, matriculas, num_matriculas);
                 break;
             case 0:
                 cout << "Voltando ao menu principal.\n";

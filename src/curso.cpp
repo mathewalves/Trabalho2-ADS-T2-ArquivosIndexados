@@ -52,29 +52,18 @@ void mostrarTodosCursos(Curso cursos[], Indice ind_curso[], int num_cursos) {
     }
 }
 
-void buscaBinariaCurso(Indice ind_curso[], Curso cursos[], int num_cursos, int codigoBusca) {
+bool buscaBinariaCurso(Indice ind_curso[], Curso cursos[], int num_cursos, int codigoBusca, Curso& curso_encontrado) {
     int inicio = 0, fim = num_cursos - 1;
-    int meio;
-
     while (inicio <= fim) {
-        meio = (inicio + fim) / 2;
-        if (codigoBusca == ind_curso[meio].chave) {
-            int posicaoRegistro = ind_curso[meio].endereco;
-            if (cursos[posicaoRegistro].status == 1) {
-                cout << "Curso encontrado:\n";
-                cout << "Código: " << cursos[posicaoRegistro].codigo_curso 
-                     << ", Descrição: " << cursos[posicaoRegistro].descricao 
-                     << ", Valor por aula: R$" << cursos[posicaoRegistro].valor_por_aula << endl;
-            } else {
-                cout << "Curso excluído ou inválido.\n";
-            }
-            return;
-        } else if (codigoBusca > ind_curso[meio].chave) {
+        int meio = (inicio + fim) / 2;
+        if (ind_curso[meio].chave == codigoBusca) {
+            curso_encontrado = cursos[ind_curso[meio].endereco];
+            return true;
+        } else if (ind_curso[meio].chave < codigoBusca) {
             inicio = meio + 1;
         } else {
             fim = meio - 1;
         }
     }
-    
-    cout << "Curso não encontrado.\n";
+    return false;
 }

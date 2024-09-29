@@ -36,4 +36,22 @@ struct Indice {
     int endereco;
 };
 
+struct Turma {
+    int codigo_turma;
+    int codigo_curso;
+    int codigo_instrutor;
+    int total_participantes;
+    int quant_max_participantes;
+    int status;
+};
+
+struct Matricula {
+    int codigo_matricula;
+    int codigo_aluno;
+    int codigo_turma;
+    int quantidade_aulas;
+    float valor_total;
+    int status;
+};
+
 #endif

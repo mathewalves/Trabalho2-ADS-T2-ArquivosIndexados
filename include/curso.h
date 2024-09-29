@@ -6,6 +6,6 @@
 void gerarIndicesCursos(Curso cursos[], Indice ind_curso[], int num_cursos);
 void lerDadosCursos(Curso cursos[], Indice ind_curso[], int& num_cursos);
 void mostrarTodosCursos(Curso cursos[], Indice ind_curso[], int num_cursos);
-void buscaBinariaCurso(Indice ind_curso[], Curso cursos[], int num_cursos, int codigoBusca);
+bool buscaBinariaCurso(Indice ind_curso[], Curso cursos[], int num_cursos, int codigoBusca, Curso& curso_encontrado);
 
 #endif
